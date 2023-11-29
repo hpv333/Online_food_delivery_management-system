@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+{% block nav_search %} active {% endblock nav_search %}
+{% block content %}
+
+
+
+
+
+
+<form method="GET" action="{% url 'product_search' %}">
+    <!-- <input type="text" name="q" value="{{ query }}" placeholder="Search by name"> -->
+
+    <div class="mb-3">
+        <div class="relative mb-4 flex w-full flex-wrap items-stretch mx-5 flex-col">
+            <h1>Product Search Results</h1>
+            <input type="search" name="q" value="{{ query }}" placeholder="Search by name"
+                class="relative m-0 -mr-0.5 block min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
+                aria-label="Search" aria-describedby="button-addon1" />
+
+            <!--Search button-->
+            <br>
+
+
+            <div class="relative">
+                <button type="submit" class="bg-blue-500 text-white rounded-md px-2 py-1">Submit</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+{% if products %}
+<ul class="mx-5 ml-50">
+    {% for product in products %}
+    <div class="max-w-xs mx-4 mb-2 rounded-lg shadow-lg">
+        {% if product.image %}
+        <img class="w-full h-48" src={{product.image}}
+        alt="{{product.image}}"/>
+          {% endif %}
+        
+          <div class="px-6 py-4">
+            <div class="flex mb-2">
+              <span class="px-4 py-0.5 text-sm bg-red-500 rounded-full text-red-50">{{product.category | default:"-" }}</span>
+            </div>
+            <h4 class="mb-3 text-xl font-semibold tracking-tight text-green-600 uppercase">{{product.name | truncatewords:5}}</h4>
+            <p class="leading-normal text-gray-700">{{product.description | truncatewords:10}}</p>
+            </div>
+      </div>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No products found.</p>
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+{% block nav_order %} active {% endblock nav_order %}
+{% block content %}
+
+
+
+
+<!-- component -->
+<!-- This is an example component -->
+ 
+    <div class="flex items-center justify-center min-h-[450px]">
+        <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+            <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="py-3 px-6">#</</th>
+                    <th scope="col" class="py-3 px-6">Product</th>
+                    <th scope="col" class="py-3 px-6">Count</th>
+                    <th scope="col" class="py-3 px-6">cost</th>
+                    <th scope="col" class="py-3 px-6">Ordered On</th>
+                    <th scope="col" class="py-3 px-6">Last Update</th>
+                    <th scope="col" class="py-3 px-6">Name</th>
+                    <th scope="col" class="py-3 px-6">Delivery To</th>
+                    <th scope="col" class="py-3 px-6">Delivered</th>
+                    <th scope="col" class="py-3 px-6">Delivered On</th>
+ 
+                </tr>
+                </thead>
+                <tbody>
+                    {% for object in object_list %}
+                    <td class="py-4 px-6">{{forloop.counter}}</td>
+                    <td class="py-4 px-6"><a href="{{object.get_absolute_url}}">{{object.product.name|upper}}</a></td>
+                    <td class="py-4 px-6">{{ object.count }}</td>
+                    <td class="py-4 px-6">{{ object.cost }}/-</td>
+                    <td class="py-4 px-6">{{ object.created }}</td>
+                    <td class="py-4 px-6">{{ object.last_updated }}</td>
+                    <td class="py-4 px-6">{{ object.name }}</td>
+                    <td class="py-4 px-6">{{ object.address }}</td>
+                    <td class="py-4 px-6">
+                        {% if object.delivered %}
+                            <p class="text-success">delivered</p>
+                        {% else %}
+                            <p class="text-danger">Will be delivered</p>
+                        {% endif %}
+                    </td>
+                    <td class="py-4 px-6">{{ object.delivered_on | default:"Soon"}}</td>
+                </tr>
+                {% endfor %}
+                
+                </tbody>
+            </table>
+            </div>
+    </div>
+    
+</div>
+ 
+ 
+ 
+{% endblock %}
